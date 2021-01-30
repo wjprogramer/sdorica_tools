@@ -103,7 +103,8 @@ setNumberOfStar = ({ star, monsterId, diff }) => {
 
       updateTotalNumberByStar(star, totalByStar[star]);
       updateTotalNumber();
-      uploadMonster(monsters);
+
+      uploadMonster({ star, monsterId, diff });
     } else {
       alert("發生錯誤");
     }
@@ -113,11 +114,10 @@ setNumberOfStar = ({ star, monsterId, diff }) => {
   }
 }
 
-uploadMonster = async(monsters) => {
+uploadMonster = async({ star, monsterId, diff }) => {
   try {
     document.getElementById("stableStaticsSaveState").innerText = "同步中";
-    jsonObject.monsters = monsters;
-    const payload = JSON.stringify(jsonObject);
+    const payload = JSON.stringify({ star, monsterId, diff });
     const res = await httpPost("/uploadJson", payload);
     const data = await res.json(); // or `await res.text();`
 
