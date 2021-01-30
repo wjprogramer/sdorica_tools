@@ -1,0 +1,22 @@
+#stableStaticsTable tbody tr td:hover .number-control {
+  display: inline-block !important;
+}
+#stableStaticsTable tbody tr td:nth-last-child(1) {
+  background-color: #ffedbd;
+  border-left: 1px solid black;
+}
+#stableStaticsTable tbody .number-control {
+  position: absolute;
+  right: 0px;
+  margin: auto 0px;
+}
+#stableStaticsTable tfoot tr {
+  background-color: #e6ffff;
+}
+#stableStaticsTable tfoot tr:nth-child(1) td, #stableStaticsTable tfoot tr:nth-child(1) th {
+  border-top: 1px solid black;
+}
+#stableStaticsTable tfoot tr:nth-child(1) td:nth-last-child(1) {
+  border-left: 1px solid black;
+  background-color: #e8ffdb;
+}

@@ -1,0 +1,3 @@
+initMonsterSkills = async() => {
+
+}

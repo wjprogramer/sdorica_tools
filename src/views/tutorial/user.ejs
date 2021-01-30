@@ -1,0 +1,37 @@
+<% layout('layout') %>
+
+<h1><%= title %></h1>
+
+<p>
+  Details: 
+  <a href="/tutorial/users/details">link</a>
+</p>
+
+<hr>
+
+<p>要使用減號 「&lt;%- ... %&gt;」</p>
+<%- insert_html %> 
+
+<hr>
+
+<% if(condition) { %>    
+  <p>Condition</p>
+<% } %>
+
+<% if(!condition) { %>    
+  <p>!Condition</p>
+<% } else { %>
+  <p>Condition</p>
+<% } %>
+
+<hr>
+
+<ul>
+  <% for (var i = 0; i < foods.length; i++) { %>
+    <li>
+      <%- foods[i] %>
+    </li>
+  <% } %>
+</ul>
+
+<hr>
