@@ -93,16 +93,16 @@ setNumberOfStar = ({ star, monsterId, diff }) => {
         return;
       }
       const numberOfStarField = document.querySelector(`#monsterRow${monsterId} .star${star} .monsterNumber`);
+      const totalField = document.querySelector(`#monsterRow${monsterId} .total`);
+     
       monster.numberOfStar[star] += diff;
       numberOfStarField.innerText = monster.numberOfStar[star];
-
-      const totalField = document.querySelector(`#monsterRow${monsterId} .total`);
       totalField.innerHTML = parseInt(totalField.innerText) + diff;
 
       totalByStar[star] += diff;
 
       updateTotalNumberByStar(star, totalByStar[star]);
-      updateTotalNumber();
+      updateTotalNumber(diff);
 
       uploadMonster({ star, monsterId, diff });
     } else {
@@ -137,12 +137,19 @@ updateTotalNumberByStar = (star, number) => {
   filed.innerText = number;
 }
 
-updateTotalNumber = () => {
-  let total = 0;
-  Object.entries(totalByStar).forEach((e) => {
-    const number = e[1];
-    total += number;
-  });
+updateTotalNumber = (diff) => {
   const field = document.getElementById("allMonstersTotal");
+
+  let total;
+  if (diff) {
+    total = parseInt(field.innerText) + diff;
+  } else {
+    total = 0;
+    Object.entries(totalByStar).forEach((e) => {
+      const number = e[1];
+      total += number;
+    });
+  }
+  
   field.innerText = total;
 }
