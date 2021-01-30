@@ -19,3 +19,4 @@
 ## Ref
 
 - [SPA in vanilla-js](https://medium.com/@bryanmanuele/how-i-implemented-my-own-spa-routing-system-in-vanilla-js-49942e3c4573)
+- [Table fixed header and scrollable body](https://stackoverflow.com/questions/21168521/table-fixed-header-and-scrollable-body)
