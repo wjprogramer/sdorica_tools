@@ -1,19 +1,11 @@
 let stableStaticsTableBody;
-let totalByStar = {
-  "1": 0,
-  "2": 0,
-  "3": 0,
-  "4": 0,
-  "5": 0,
-  "6": 0,
-  "7": 0,
-  "8": 0,
-  "9": 0,
-};
+let totalByStar;
 
 initStableStaticsPage = async() => {
   const json = await httpGet("/json/monster.json");
   const jsonObject = JSON.parse(json);
+
+  resetStableStaticsPage();
 
   monsters = jsonObject.monsters;
   
@@ -81,6 +73,20 @@ initStableStaticsPage = async() => {
   });
 
   updateTotalNumber();
+}
+
+resetStableStaticsPage = () => {
+  totalByStar = {
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0,
+    "5": 0,
+    "6": 0,
+    "7": 0,
+    "8": 0,
+    "9": 0,
+  };
 }
 
 setNumberOfStar = ({ star, monsterId, diff }) => {
