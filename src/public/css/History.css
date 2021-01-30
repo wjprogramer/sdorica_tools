@@ -1,0 +1,6 @@
+#historyPage .eventItem {
+  overflow: visible;
+}
+#historyPage .eventItem .title {
+  margin-bottom: 4px;
+}

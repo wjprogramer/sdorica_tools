@@ -1,3 +1,3 @@
-initMonsterSkills = async() => {
+initMonsterSkillsPage = async() => {
 
 }

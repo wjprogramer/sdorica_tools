@@ -7,6 +7,9 @@ async function httpGet(url) {
 }
 
 function httpPost(url, data) {
+    if(typeof data !== "string") {
+        data = JSON.stringify(data);
+    }
     return fetch(url, {
         method : "POST",
         body: data,

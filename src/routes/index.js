@@ -12,6 +12,7 @@ const routes = [
   "/StableStatics",
   "/MonsterSkills",
   "/Menu",
+  "/History",
 ];
 
 const appDir = path.dirname(require.main.filename);
@@ -41,13 +42,15 @@ router.post("/uploadJson", (req, res, next) => {
     if (!Array.isArray(root.events)) {
       root.events = [];
     }
+    const newEventId = root.events.length;
     root.events.push({
+      id: newEventId,
       type: "directly_change_number",
       monsterId,
       diff,
       star,
       time: TimeUtility.formatDate(new Date(), "yyyy-MM-dd HH:mm:ss"),
-      isRecoverd: false,
+      isRecovered: false,
     });
 
     // write
@@ -65,6 +68,62 @@ router.post("/uploadJson", (req, res, next) => {
       "result": false,
     });
   }
-})
+});
+
+// TODO
+router.post("/toggleEvent", (req, res, next) => {
+  try {
+    const { eventId } = req.body;
+  } catch(error) {
+    console.log("error!");
+    res.send({
+      "result": false,
+    });
+  }
+});
+
+router.post("/removeEvent", (req, res, next) => {
+  try {
+    let { eventId } = req.body;
+    eventId = parseInt(eventId);
+
+    // read file
+    let content = fs.readFileSync(monsterJsonPath, "utf-8");
+    const root = JSON.parse(content);
+
+    if (!Array.isArray(root.events)) {
+      throw Error();
+    }
+
+    root.events = root.events.filter(
+      event => event.id !== eventId);
+    
+    const result = JSON.stringify(root, null, "\t");
+    fs.writeFileSync(monsterJsonPath, result);
+    fs.writeFileSync(monsterBackupJsonPath, result);
+    
+    res.send({
+      "result": true,
+    });
+  } catch(error) {
+    console.log("error!");
+    res.send({
+      "result": false,
+    });
+  }
+});
+
+// TODO
+router.post("/clearEventList", (req, res, next) => {
+  try {
+
+  } catch(error) {
+    console.log("error!");
+    res.send({
+      "result": false,
+    });
+  }
+});
+
 
 module.exports = router;

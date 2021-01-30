@@ -9,7 +9,7 @@ let navStableStaticsButton;
 let navMonsterSkillsButton;
 let navMenuButton;
 
-let routes = {}
+let routes = {};
 
 init = async() => {
   pageMainContent = document.getElementById("pageMainContent");
@@ -19,56 +19,65 @@ init = async() => {
   navMonsterSkillsButton = document.getElementById("navMonsterSkillsButton");
   navMenuButton = document.getElementById("navMenuButton");
   
-  const pageContentRequests = [
-    httpGet("/html/Home.html"),
-    httpGet("/html/StableStatics.html"),
-    httpGet("/html/MonsterSkills.html"),
-    httpGet("/html/Menu.html"),
+  const pageList = [
+    {
+      route: "/",
+      promise: httpGet("/html/Home.html"),
+      init: () => {},
+    },
+    {
+      route: "/StableStatics",
+      promise: httpGet("/html/StableStatics.html"),
+      init: initStableStaticsPage,
+    },
+    {
+      route: "/MonsterSkills",
+      promise: httpGet("/html/MonsterSkills.html"),
+      init: initMonsterSkillsPage,
+    },
+    {
+      route: "/Menu",
+      promise: httpGet("/html/Menu.html"),
+      init: initMenuPage,
+    },
+    {
+      route: "/History",
+      promise: httpGet("/html/History.html"),
+      init: initHistoryPage,
+    },
   ];
 
   let pageContents = [];
   await Promise
-    .all(pageContentRequests.map(reflect))
+    .all(pageList.map((e) => e.promise).map(reflect))
     .then(function(results){
       pageContents = results.filter(x => x.status === "fulfilled");
       console.log(pageContents);
     });
 
-  routes = {
-    '/': {
-      pageContent: pageContents[0].v,
-      init: () => {},
-    },
-    '/StableStatics': {
-      pageContent: pageContents[1].v,
-      init: initStableStaticsPage,
-    },
-    '/MonsterSkills': {
-      pageContent: pageContents[2].v,
-      init: () => {},
-    },
-    '/Menu': {
-      pageContent: pageContents[3].v,
-      init: () => {},
-    },
-  };
+  pageList.forEach((page, index) => {
+    routes[page.route] = {
+      pageContent: pageContents[index].v,
+      init: page.init,
+    };
+  })
 
   replacePageContent();
 
   navHomeButton.addEventListener("click", () => {
-    onNavItemClick("/");
+    pushNamed("/");
   });
 
   navStableStaticsButton.addEventListener("click", () => {
-    onNavItemClick("/StableStatics");
+    pushNamed("/StableStatics");
   });
 
   navMonsterSkillsButton.addEventListener("click", () => {
-    onNavItemClick("/MonsterSkills");
+    pushNamed("/MonsterSkills");
   });
 
   navMenuButton.addEventListener("click", () => {
-    onNavItemClick("/Menu");
+    pushNamed("/Menu");
   });
 }
 
@@ -82,7 +91,7 @@ replacePageContent = () => {
   route.init();
 }
 
-let onNavItemClick = (pathName) => {
+let pushNamed = (pathName) => {
   window.history.pushState(
     {}, 
     pathName,

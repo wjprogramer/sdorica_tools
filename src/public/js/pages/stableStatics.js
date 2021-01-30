@@ -1,6 +1,5 @@
 let stableStaticsTableBody;
 let monsters;
-let jsonObject;
 let totalByStar = {
   "1": 0,
   "2": 0,
@@ -15,7 +14,7 @@ let totalByStar = {
 
 initStableStaticsPage = async() => {
   const json = await httpGet("/json/monster.json");
-  jsonObject = JSON.parse(json);
+  const jsonObject = JSON.parse(json);
 
   monsters = jsonObject.monsters;
   
@@ -86,6 +85,7 @@ initStableStaticsPage = async() => {
 }
 
 setNumberOfStar = ({ star, monsterId, diff }) => {
+  console.log("click");
   const monster = monsters.filter((e) => e.id === monsterId)[0];
   try {
     if (monster) {
