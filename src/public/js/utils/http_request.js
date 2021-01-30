@@ -6,7 +6,17 @@ async function httpGet(url) {
     return await makeRequest("GET", url);
 }
 
-function makeRequest(method, url) {
+function httpPost(url, data) {
+    return fetch(url, {
+        method : "POST",
+        body: data,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+}
+
+function makeRequest(method, url, data) {
   return new Promise(function (resolve, reject) {
       let xhr = new XMLHttpRequest();
       xhr.open(method, url);
@@ -26,6 +36,6 @@ function makeRequest(method, url) {
               statusText: xhr.statusText
           });
       };
-      xhr.send();
+      xhr.send(data);
   });
 }

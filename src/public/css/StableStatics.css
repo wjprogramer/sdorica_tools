@@ -1,3 +1,6 @@
+#stableStaticsTable {
+  border-collapse: collapse;
+}
 #stableStaticsTable tbody tr td:hover .number-control {
   display: inline-block !important;
 }
@@ -19,4 +22,14 @@
 #stableStaticsTable tfoot tr:nth-child(1) td:nth-last-child(1) {
   border-left: 1px solid black;
   background-color: #e8ffdb;
+}
+
+#stableStaticsSaveState {
+  position: fixed;
+  width: 100px;
+  right: 16px;
+  bottom: 16px;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 5px;
 }
