@@ -1,5 +1,4 @@
 let stableStaticsTableBody;
-let monsters;
 let totalByStar = {
   "1": 0,
   "2": 0,

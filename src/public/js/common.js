@@ -1,0 +1,2 @@
+let monsters;
+let skills;
