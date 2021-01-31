@@ -11,6 +11,39 @@ let navMenuButton;
 
 let routes = {};
 
+const pageList = [
+  {
+    route: "/",
+    promise: () => httpGet("/html/Home.html"),
+    init: () => {},
+    localEnvPageContent: homePageContent,
+  },
+  {
+    route: "/StableStatics",
+    promise: () => httpGet("/html/StableStatics.html"),
+    init: initStableStaticsPage,
+    localEnvPageContent: stableStaticsPageContent,
+  },
+  {
+    route: "/MonsterSkills",
+    promise: () => httpGet("/html/MonsterSkills.html"),
+    init: initMonsterSkillsPage,
+    localEnvPageContent: monsterSkillsPageContent,
+  },
+  {
+    route: "/Menu",
+    promise: () => httpGet("/html/Menu.html"),
+    init: initMenuPage,
+    localEnvPageContent: menuPageContent,
+  },
+  {
+    route: "/History",
+    promise: () => httpGet("/html/History.html"),
+    init: initHistoryPage,
+    localEnvPageContent: historyPageContent,
+  },
+];
+
 init = async() => {
   pageMainContent = document.getElementById("pageMainContent");
 
@@ -18,42 +51,21 @@ init = async() => {
   navStableStaticsButton = document.getElementById("navStableStaticsButton");
   navMonsterSkillsButton = document.getElementById("navMonsterSkillsButton");
   navMenuButton = document.getElementById("navMenuButton");
-  
-  const pageList = [
-    {
-      route: "/",
-      promise: httpGet("/html/Home.html"),
-      init: () => {},
-    },
-    {
-      route: "/StableStatics",
-      promise: httpGet("/html/StableStatics.html"),
-      init: initStableStaticsPage,
-    },
-    {
-      route: "/MonsterSkills",
-      promise: httpGet("/html/MonsterSkills.html"),
-      init: initMonsterSkillsPage,
-    },
-    {
-      route: "/Menu",
-      promise: httpGet("/html/Menu.html"),
-      init: initMenuPage,
-    },
-    {
-      route: "/History",
-      promise: httpGet("/html/History.html"),
-      init: initHistoryPage,
-    },
-  ];
 
   let pageContents = [];
-  await Promise
-    .all(pageList.map((e) => e.promise).map(reflect))
-    .then(function(results){
-      pageContents = results.filter(x => x.status === "fulfilled");
-      console.log(pageContents);
+  if (isStaticEnv) {
+    pageContents = pageList.map((e) => {
+      return {
+        v: e.localEnvPageContent,
+      }
     });
+  } else {
+    await Promise
+      .all(pageList.map((e) => e.promise()).map(reflect))
+      .then(function(results){
+        pageContents = results.filter(x => x.status === "fulfilled");
+      });
+  }
 
   pageList.forEach((page, index) => {
     routes[page.route] = {
@@ -86,12 +98,32 @@ window.onpopstate = () => {
 }
 
 replacePageContent = () => {
+  if (isStaticEnv) {
+    return;
+  }
   const route = routes[window.location.pathname];
   pageMainContent.innerHTML = route.pageContent;
   route.init();
 }
 
-let pushNamed = (pathName) => {
+pushNamed = (pathName) => {
+  if (isStaticEnv) {
+    static__pushNamed(pathName);
+  } else {
+    remote__pushNamed(pathName);
+  }
+}
+
+static__pushNamed = (pathName) => {
+  console.log(pathName);
+  const page = pageList.filter((e) => e.route === pathName)[0];
+  if (page) {
+    pageMainContent.innerHTML = page.localEnvPageContent;
+    page.init();
+  }
+}
+
+remote__pushNamed = (pathName) => {
   window.history.pushState(
     {}, 
     pathName,

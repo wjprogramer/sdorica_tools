@@ -1,5 +1,3 @@
-let events;
-
 let eventListElem;
 
 const titleOfEventType = {
@@ -7,8 +5,7 @@ const titleOfEventType = {
 };
 
 initHistoryPage = async() => {
-  const json = await httpGet("/json/monster.json");
-  const jsonObject = JSON.parse(json);
+  let jsonObject = await getMonsterRoot();
   events = jsonObject.events;
 
   eventListElem = document.getElementById("eventList");

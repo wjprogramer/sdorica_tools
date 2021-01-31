@@ -3,24 +3,28 @@ let indexOfSkill = {};
 let skillsLength = 0;
 
 initMonsterSkillsPage = async() => {
-  reset();
+  try {
+    reset();
 
-  const json = await httpGet("/json/monster.json");
-  const jsonObject = JSON.parse(json);
+    let jsonObject = await getMonsterRoot();
 
-  monsters = jsonObject.monsters;
-  skills = jsonObject.skills;
-  skillsLength = skills.length;
+    monsters = jsonObject.monsters;
+    skills = jsonObject.skills;
+    skillsLength = skills.length;
 
-  monsterSkillsTable = document.getElementById("monsterSkillsTable");
+    monsterSkillsTable = document.getElementById("monsterSkillsTable");
 
-  initMonster();
+    initMonster();
 
-  setSkillIndexMapping();
-  renderTableHeader();
-  renderTableBody();
-  
-  fillMonsterSkillTable();
+    setSkillIndexMapping();
+    renderTableHeader();
+    renderTableBody();
+    
+    fillMonsterSkillTable();
+  } catch (error) {
+    alert("初始化錯誤");
+    console.error(error);
+  }
 }
 
 reset = () => {

@@ -42,7 +42,7 @@ router.post("/uploadJson", (req, res, next) => {
     if (!Array.isArray(root.events)) {
       root.events = [];
     }
-    const newEventId = root.events.length;
+    const newEventId = root.events[root.events.length - 1].id + 1;
     root.events.push({
       id: newEventId,
       type: "directly_change_number",

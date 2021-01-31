@@ -2,12 +2,12 @@ let stableStaticsTableBody;
 let totalByStar;
 
 initStableStaticsPage = async() => {
-  const json = await httpGet("/json/monster.json");
-  const jsonObject = JSON.parse(json);
+  const jsonObject = await getMonsterRoot();
 
   resetStableStaticsPage();
 
   monsters = jsonObject.monsters;
+  events = jsonObject.events;
   
   stableStaticsTableBody = document.querySelector("#stableStaticsTable tbody");
 
@@ -90,7 +90,6 @@ resetStableStaticsPage = () => {
 }
 
 setNumberOfStar = ({ star, monsterId, diff }) => {
-  console.log("click");
   const monster = monsters.filter((e) => e.id === monsterId)[0];
   try {
     if (monster) {
@@ -122,19 +121,52 @@ setNumberOfStar = ({ star, monsterId, diff }) => {
 uploadMonster = async({ star, monsterId, diff }) => {
   try {
     document.getElementById("stableStaticsSaveState").innerText = "同步中";
-    const payload = JSON.stringify({ star, monsterId, diff });
-    const res = await httpPost("/uploadJson", payload);
-    const data = await res.json(); // or `await res.text();`
 
-    if (data.result) {
+    let result = false;
+    if (isStaticEnv) {
+      result = static__uploadMonster({ star, monsterId, diff });
+    } else {
+      result = remote__uploadMonster({ star, monsterId, diff });
+    }
+
+    if (result) {
       document.getElementById("stableStaticsSaveState").innerText = "已是最新";
     } else {
       throw Error();
     }
   } catch(error) {
     document.getElementById("stableStaticsSaveState").innerText = "同步失敗";
-    console.log(error)
+    console.error(error)
   }
+}
+
+static__uploadMonster = async({ star, monsterId, diff }) => {
+  const monster = monsters.filter((m) => m.id === monsterId)[0];
+  if (monster === undefined) {
+    return false;
+  }
+  ls.setItem("monsters", JSON.stringify(monsters));
+
+  const newEventId = (events[events.length - 1]?.id || 0) + 1;
+  events.push({
+    id: newEventId,
+    type: "directly_change_number",
+    monsterId,
+    diff,
+    star,
+    time: (new Date()).toMyFormatString("yyyy-MM-dd HH:mm:ss"),
+    isRecovered: false,
+  });
+  ls.setItem("events", JSON.stringify(events));
+
+  return true;
+}
+
+remote__uploadMonster = async({ star, monsterId, diff }) => {
+  const payload = JSON.stringify({ star, monsterId, diff });
+  const res = await httpPost("/uploadJson", payload);
+  const data = await res.json(); // or `await res.text();`
+  return data.result;
 }
 
 updateTotalNumberByStar = (star, number) => {
