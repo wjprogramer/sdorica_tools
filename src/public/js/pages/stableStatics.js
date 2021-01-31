@@ -154,7 +154,7 @@ static__uploadMonster = async({ star, monsterId, diff }) => {
     monsterId,
     diff,
     star,
-    time: (new Date()).toMyFormatString("yyyy-MM-dd HH:mm:ss"),
+    time: (new Date()).toMyFormatString("yyyy-MM-dd hh:mm:ss"),
     isRecovered: false,
   });
   ls.setItem("events", JSON.stringify(events));

@@ -10,6 +10,7 @@ initHistoryPage = async() => {
 
   eventListElem = document.getElementById("eventList");
 
+  events.sort((a, b) => b.id - a.id);
   events.forEach((event) => {
     const changeStateButton = event.isRecovered
     ? `
@@ -46,7 +47,7 @@ initHistoryPage = async() => {
           <span>${event.time}</span>
         </div>
         <span class="w3-display-right noselect">
-          ${changeStateButton}
+          <!-- TODO ${changeStateButton} -->
           ${deleteEventButton}
           &nbsp;&nbsp;&nbsp;
         </span>
@@ -68,10 +69,14 @@ getEventMessageByType = (event) => {
 
 deleteEvent = async(eventId) => {
   try {
-    const res = await httpPost("/removeEvent", { eventId });
-    const data = await res.json();
+    result = false;
+    if (isStaticEnv) {
+      result = static__deleteEvent(eventId);
+    } else {
+      result = remote__deleteEvent(eventId);
+    }
 
-    if (data.result) {
+    if (result) {
       document.getElementById(`eventItem${eventId}`)?.remove();
     } else {
       throw Error();
@@ -81,3 +86,16 @@ deleteEvent = async(eventId) => {
     alert("刪除失敗")
   }
 }
+
+static__deleteEvent = async(eventId) => {
+  events = events.filter((e) => e.id != eventId);
+  ls.setItem("events", JSON.stringify(events));
+  return true;
+}
+
+remote__deleteEvent = async(eventId) => {
+  const res = await httpPost("/removeEvent", { eventId });
+  const data = await res.json();
+  return data.result;
+}
+

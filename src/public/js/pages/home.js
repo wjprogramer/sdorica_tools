@@ -1,133 +1,66 @@
-window.onload = () => {
-  init();
-}
-
-let pageMainContent;
-
-let navHomeButton;
-let navStableStaticsButton;
-let navMonsterSkillsButton;
-let navMenuButton;
+let importMonstersJsonButton;
+let exportMonstersJsonButton;
+let monstersJsonFileInput;
 
 let routes = {};
 
-const pageList = [
-  {
-    route: "/",
-    promise: () => httpGet("/html/Home.html"),
-    init: () => {},
-    localEnvPageContent: homePageContent,
-  },
-  {
-    route: "/StableStatics",
-    promise: () => httpGet("/html/StableStatics.html"),
-    init: initStableStaticsPage,
-    localEnvPageContent: stableStaticsPageContent,
-  },
-  {
-    route: "/MonsterSkills",
-    promise: () => httpGet("/html/MonsterSkills.html"),
-    init: initMonsterSkillsPage,
-    localEnvPageContent: monsterSkillsPageContent,
-  },
-  {
-    route: "/Menu",
-    promise: () => httpGet("/html/Menu.html"),
-    init: initMenuPage,
-    localEnvPageContent: menuPageContent,
-  },
-  {
-    route: "/History",
-    promise: () => httpGet("/html/History.html"),
-    init: initHistoryPage,
-    localEnvPageContent: historyPageContent,
-  },
-];
+initHomePage = async() => {
+  importMonstersJsonButton = document.getElementById("importMonstersJsonButton");
+  exportMonstersJsonButton = document.getElementById("exportMonstersJsonButton");
+  monstersJsonFileInput = document.getElementById("monstersJsonFileInput");
 
-init = async() => {
-  pageMainContent = document.getElementById("pageMainContent");
-
-  navHomeButton = document.getElementById("navHomeButton");
-  navStableStaticsButton = document.getElementById("navStableStaticsButton");
-  navMonsterSkillsButton = document.getElementById("navMonsterSkillsButton");
-  navMenuButton = document.getElementById("navMenuButton");
-
-  let pageContents = [];
-  if (isStaticEnv) {
-    pageContents = pageList.map((e) => {
-      return {
-        v: e.localEnvPageContent,
-      }
-    });
-  } else {
-    await Promise
-      .all(pageList.map((e) => e.promise()).map(reflect))
-      .then(function(results){
-        pageContents = results.filter(x => x.status === "fulfilled");
-      });
+  if (!isStaticEnv) {
+    importMonstersJsonButton.style.display = "none"
   }
-
-  pageList.forEach((page, index) => {
-    routes[page.route] = {
-      pageContent: pageContents[index].v,
-      init: page.init,
-    };
-  })
-
-  replacePageContent();
-
-  navHomeButton.addEventListener("click", () => {
-    pushNamed("/");
+  importMonstersJsonButton.addEventListener("click", () => {
+    monstersJsonFileInput.click();
   });
 
-  navStableStaticsButton.addEventListener("click", () => {
-    pushNamed("/StableStatics");
+  exportMonstersJsonButton.addEventListener("click", () => {
+    exportMonstersJson();
   });
 
-  navMonsterSkillsButton.addEventListener("click", () => {
-    pushNamed("/MonsterSkills");
-  });
-
-  navMenuButton.addEventListener("click", () => {
-    pushNamed("/Menu");
+  monstersJsonFileInput.addEventListener('change', (e) => {
+    importMonstersJson(e);
   });
 }
 
-window.onpopstate = () => {
-  replacePageContent();
+importMonstersJson = (e) => {
+  const reader = new FileReader()
+  reader.onload = async (e) => { 
+    const text = (e.target.result);
+    onMonstersJsonReadComplete(text);
+  };
+  reader.readAsText(e.target.files[0]);
 }
 
-replacePageContent = () => {
-  if (isStaticEnv) {
-    return;
-  }
-  const route = routes[window.location.pathname];
-  pageMainContent.innerHTML = route.pageContent;
-  route.init();
-}
-
-pushNamed = (pathName) => {
-  if (isStaticEnv) {
-    static__pushNamed(pathName);
-  } else {
-    remote__pushNamed(pathName);
-  }
-}
-
-static__pushNamed = (pathName) => {
-  console.log(pathName);
-  const page = pageList.filter((e) => e.route === pathName)[0];
-  if (page) {
-    pageMainContent.innerHTML = page.localEnvPageContent;
-    page.init();
+onMonstersJsonReadComplete = (text) => {
+  try {
+    const rootJsonObj = JSON.parse(text);
+    ls.setItem("monsters", JSON.stringify(rootJsonObj.monsters));
+    ls.setItem("skills", JSON.stringify(rootJsonObj.skills));
+    ls.setItem("events", JSON.stringify(rootJsonObj.events));
+  } catch (error) {
+    console.error(error);
+    alert("讀取時發生錯誤，請檢察格式");
   }
 }
 
-remote__pushNamed = (pathName) => {
-  window.history.pushState(
-    {}, 
-    pathName,
-    window.location.origin + pathName
-  );
-  replacePageContent();
+exportMonstersJson = async() => {
+  try {
+    const fileName = `sdorica_獸廄資料_${(new Date()).toLocaleString()}`;
+    const jsonObj = await getMonsterRoot();
+    const jsonString = JSON.stringify(jsonObj, null, "\t");
+    const blob = new Blob([jsonString],{type:'application/json'});
+    const href = await URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = href;
+    link.download = fileName + ".json";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  } catch (error) {
+    console.error(error);
+    alert("匯出時發生錯誤");
+  }
 }
