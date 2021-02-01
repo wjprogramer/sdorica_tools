@@ -1,0 +1,11 @@
+#menuPage .menu-list li {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+#menuPage .menu-list li .left-icon-container {
+  width: 40px;
+  display: inline-block;
+  text-align: center;
+}
