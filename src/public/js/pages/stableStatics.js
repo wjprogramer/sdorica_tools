@@ -2,13 +2,9 @@ let stableStaticsTableBody;
 let totalByStar;
 
 initStableStaticsPage = async() => {
-  const jsonObject = await getMonsterRoot();
 
   resetStableStaticsPage();
 
-  monsters = jsonObject.monsters;
-  events = jsonObject.events;
-  
   stableStaticsTableBody = document.querySelector("#stableStaticsTable tbody");
 
   monsters.forEach((monster, index) => {

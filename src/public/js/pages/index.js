@@ -2,7 +2,8 @@ window.onload = () => {
   init();
 }
 
-let pageMainContent;
+let mainContentContainer;
+let loadingContent;
 
 let navHomeButton;
 let navStableStaticsButton;
@@ -12,43 +13,46 @@ let navMenuButton;
 const pageList = [
   {
     route: "/",
-    promise: () => httpGet("/html/Home.html"),
+    promise: () => httpGet("/Home.html"),
     init: initHomePage,
     localEnvPageContent: homePageContent,
   },
   {
     route: "/StableStatics",
-    promise: () => httpGet("/html/StableStatics.html"),
+    promise: () => httpGet("/StableStatics.html"),
     init: initStableStaticsPage,
     localEnvPageContent: stableStaticsPageContent,
   },
   {
     route: "/MonsterSkills",
-    promise: () => httpGet("/html/MonsterSkills.html"),
+    promise: () => httpGet("/MonsterSkills.html"),
     init: initMonsterSkillsPage,
     localEnvPageContent: monsterSkillsPageContent,
   },
   {
     route: "/Menu",
-    promise: () => httpGet("/html/Menu.html"),
+    promise: () => httpGet("/Menu.html"),
     init: initMenuPage,
     localEnvPageContent: menuPageContent,
   },
   {
     route: "/History",
-    promise: () => httpGet("/html/History.html"),
+    promise: () => httpGet("/History.html"),
     init: initHistoryPage,
     localEnvPageContent: historyPageContent,
   },
 ];
 
 init = async() => {
-  pageMainContent = document.getElementById("pageMainContent");
+  mainContentContainer = document.getElementById("mainContentContainer");
+  loadingContent = document.getElementById("loadingContent");
 
   navHomeButton = document.getElementById("navHomeButton");
   navStableStaticsButton = document.getElementById("navStableStaticsButton");
   navMonsterSkillsButton = document.getElementById("navMonsterSkillsButton");
   navMenuButton = document.getElementById("navMenuButton");
+
+  await loadData();
 
   let pageContents = [];
   if (isStaticEnv) {
@@ -92,18 +96,28 @@ init = async() => {
 
 }
 
+loadData = async() => {
+  const jsonObject = await getMonsterRoot();
+
+  monsters = jsonObject.monsters;
+  events = jsonObject.events;
+  skills = jsonObject.skills;
+}
+
 window.onpopstate = () => {
   replacePageContent();
 }
 
-replacePageContent = () => {
+replacePageContent = async() => {
   if (isStaticEnv) {
     pushNamed("/");
     return;
   }
+  setLoading(true);
   const route = routes[window.location.pathname];
-  pageMainContent.innerHTML = route.pageContent;
-  route.init();
+  mainContentContainer.innerHTML = route.pageContent;
+  route.init()
+    .then(() => setLoading(false));
 }
 
 pushNamed = (pathName) => {
@@ -114,11 +128,13 @@ pushNamed = (pathName) => {
   }
 }
 
-static__pushNamed = (pathName) => {
+static__pushNamed = async(pathName) => {
   const page = pageList.filter((e) => e.route === pathName)[0];
   if (page) {
-    pageMainContent.innerHTML = page.localEnvPageContent;
-    page.init();
+    setLoading(true);
+    mainContentContainer.innerHTML = page.localEnvPageContent;
+    page.init()
+      .then(() => setLoading(false));
   }
 }
 
@@ -129,4 +145,11 @@ remote__pushNamed = (pathName) => {
     window.location.origin + pathName
   );
   replacePageContent();
+}
+
+setLoading = (isLoading) => {
+  mainContentContainer.style.display = 
+    isLoading ? "none" : "block";
+  loadingContent.style.display = 
+    isLoading ? "block" : "none";
 }
