@@ -1,6 +1,9 @@
 #stableStaticsTable {
   border-collapse: collapse;
 }
+#stableStaticsTable .monsterNumber.isZero {
+  color: #d9d9d9;
+}
 #stableStaticsTable tbody tr td:hover .number-control {
   display: inline-block !important;
 }

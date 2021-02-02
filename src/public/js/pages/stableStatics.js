@@ -8,6 +8,8 @@ initStableStaticsPage = async() => {
   stableStaticsTableBody = document.querySelector("#stableStaticsTable tbody");
 
   monsters.forEach((monster, index) => {
+    const avaiableMinStar = monster.avaiableMinStar;
+
     let tableBody = "";
     tableBody += `
       <th>${monster.name}</th>
@@ -24,13 +26,16 @@ initStableStaticsPage = async() => {
     numberOfStar.forEach((item) => {
       const star = item[0];
       const number = item[1];
+      const isUnavailable = star < avaiableMinStar;
+      const monsterNumberCellId = getMonsterNumberCellId({ monsterId: monster.id, star });
+
       total += item[1];
       totalByStar[star] += number;
       tableBody += `
         <td class="star${star}">
           <div style="position: relative;">
-            <span class="monsterNumber">${number}</span>
-            <div class="noselect w3-hide number-control">
+            <span id="${monsterNumberCellId}" class="monsterNumber ${number === 0 ? "isZero" : ""}" style="visibility: ${isUnavailable ? "hidden" : "visible"}">${number}</span>
+            <div class="noselect w3-hide number-control" style="visibility: ${isUnavailable ? "hidden" : "visible"}">
               <a style="cursor: pointer" onclick="setNumberOfStar({ star: ${star}, monsterId: '${monster.id}', diff: 1 })">
                 <i class="material-icons w3-text-green">
                   add_circle_outline
@@ -127,6 +132,16 @@ uploadMonster = async({ star, monsterId, diff }) => {
 
     if (result) {
       document.getElementById("stableStaticsSaveState").innerText = "已是最新";
+      
+      const cellId = getMonsterNumberCellId({ monsterId, star });
+      const cell = document.getElementById(cellId);
+      const classList = document.getElementById(cellId).classList;
+
+      if (cell.innerText == "0") {
+        classList.toggle("isZero", true);
+      } else {
+        classList.toggle("isZero", false);
+      }
     } else {
       throw Error();
     }
@@ -189,4 +204,8 @@ updateTotalNumber = (diff) => {
   }
   
   field.innerText = total;
+}
+
+getMonsterNumberCellId = ({ monsterId, star }) => {
+  return `monsterNumberCell_${monsterId}_${star}`;
 }
