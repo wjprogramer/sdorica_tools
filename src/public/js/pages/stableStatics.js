@@ -143,7 +143,11 @@ static__uploadMonster = async({ star, monsterId, diff }) => {
   }
   ls.setItem("monsters", JSON.stringify(monsters));
 
-  const newEventId = (events[events.length - 1]?.id || 0) + 1;
+  const newEventId = Math.max(
+    events[0]?.id, 
+    events[events.length - 1]?.id, 
+    0
+  ) + 1; 
   events.push({
     id: newEventId,
     type: "directly_change_number",

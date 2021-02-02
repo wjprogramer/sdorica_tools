@@ -54,6 +54,8 @@ init = async() => {
 
   await loadData();
 
+  events.sort((a, b) => b.id - a.id);
+
   let pageContents = [];
   if (isStaticEnv) {
     pageContents = pageList.map((e) => {

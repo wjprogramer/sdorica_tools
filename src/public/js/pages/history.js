@@ -7,11 +7,28 @@ const titleOfEventType = {
 initHistoryPage = async() => {
   let jsonObject = await getMonsterRoot();
   events = jsonObject.events;
+  
+  let prevDate;
+  let currDate;
 
   eventListElem = document.getElementById("eventList");
 
   events.sort((a, b) => b.id - a.id);
   events.forEach((event) => {
+
+    prevDate = currDate;
+    currDate = event.time.substring(0, 10);
+
+    if (currDate !== prevDate) {
+      eventListElem.innerHTML += `
+        <li>
+          <h1>
+            ${currDate}
+          </h1>
+        </li>
+      `;
+    }
+
     const changeStateButton = event.isRecovered
     ? `
       <div class="tooltip">
