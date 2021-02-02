@@ -1,4 +1,5 @@
 let eventListElem;
+let clearEventsButton; 
 
 const titleOfEventType = {
   "directly_change_number": "直接修改數量"
@@ -12,6 +13,7 @@ initHistoryPage = async() => {
   let currDate;
 
   eventListElem = document.getElementById("eventList");
+  clearEventsButton = document.getElementById("clearEventsButton");
 
   events.sort((a, b) => b.id - a.id);
   events.forEach((event) => {
@@ -22,9 +24,9 @@ initHistoryPage = async() => {
     if (currDate !== prevDate) {
       eventListElem.innerHTML += `
         <li>
-          <h1>
+          <h3>
             ${currDate}
-          </h1>
+          </h3>
         </li>
       `;
     }
@@ -70,6 +72,10 @@ initHistoryPage = async() => {
         </span>
       </li>
     `;
+  });
+
+  clearEventsButton.addEventListener("click", () => {
+    
   });
 }
 
