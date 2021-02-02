@@ -40,6 +40,11 @@ onMonstersJsonReadComplete = (text) => {
     ls.setItem("monsters", JSON.stringify(rootJsonObj.monsters));
     ls.setItem("skills", JSON.stringify(rootJsonObj.skills));
     ls.setItem("events", JSON.stringify(rootJsonObj.events));
+
+    monsters = rootJsonObj.monsters;
+    skills = rootJsonObj.skills;
+    events = rootJsonObj.events;
+
   } catch (error) {
     console.error(error);
     alert("讀取時發生錯誤，請檢察格式");

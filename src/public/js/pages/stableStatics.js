@@ -164,7 +164,7 @@ static__uploadMonster = async({ star, monsterId, diff }) => {
     0
   ) + 1; 
   events.push({
-    id: newEventId,
+    id: newEventId || 1,
     type: "directly_change_number",
     monsterId,
     diff,
