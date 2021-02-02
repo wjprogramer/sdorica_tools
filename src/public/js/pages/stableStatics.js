@@ -12,7 +12,15 @@ initStableStaticsPage = async() => {
 
     let tableBody = "";
     tableBody += `
-      <th>${monster.name}</th>
+      <th>
+        <img
+          src="images/70px-${monster.name}_Monster_Icon.png"
+          style="width: 30px; margin-right: 4px;"
+          alt="${monster.name}"
+          title="${monster.name}"
+        />
+        <span class="trMonsterName">${monster.name}</span>
+      </th>
     `;
 
     let numberOfStar = Object.entries(monster.numberOfStar);

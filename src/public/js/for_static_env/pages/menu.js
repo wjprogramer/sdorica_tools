@@ -46,4 +46,9 @@ const menuPageContent = `<div id="menuPage">
     <!-- END Item -->
   </ul>
 </div>
+
+<!-- TODO -->
+<!-- <div class="w3-padding">
+  <h3>一般免責聲明</h3>
+</div> -->
 </div>`;

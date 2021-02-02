@@ -1,5 +1,11 @@
+$small: 600px
+$medium: 900px
+  
 #stableStaticsTable
   border-collapse: collapse
+  .trMonsterName
+    @media screen and (max-width: $small)
+      display: none
   .monsterNumber
     &.isZero
       color: #d9d9d9

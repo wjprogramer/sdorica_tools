@@ -65,7 +65,14 @@ renderTableHeader = () => {
   let content = "<th></th>";
   skills.forEach((skill, index) => {
     content += `
-      <th>${skill.name}</th>
+      <th>
+        <img 
+          src="images/24px-${skill.name}_Icon.png"
+          alt="${skill.name}"
+          title="${skill.name}"
+        />
+        ${skill.name}
+      </th>
     `;
   });
   header.innerHTML = content;
@@ -75,7 +82,14 @@ renderTableBody = () => {
   let content = "";
   skills.forEach((skill, index) => {
     content += `
-      <th>${skill.name}</th>
+      <th>
+        <img 
+          src="images/24px-${skill.name}_Icon.png"
+          alt="${skill.name}"
+          title="${skill.name}"
+        />
+        ${skill.name}
+      </th>
     `;
     for (let otherIndex = 0; otherIndex < skillsLength; otherIndex++) {
       const otherSkill = skills[otherIndex];
