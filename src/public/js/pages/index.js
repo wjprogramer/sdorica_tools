@@ -14,32 +14,32 @@ const pageList = [
   {
     route: "/",
     promise: () => httpGet("/Home.html"),
-    init: initHomePage,
     localEnvPageContent: homePageContent,
+    page: HomePage,
   },
   {
     route: "/StableStatics",
     promise: () => httpGet("/StableStatics.html"),
-    init: initStableStaticsPage,
     localEnvPageContent: stableStaticsPageContent,
+    page: StableStaticsPage,
   },
   {
     route: "/MonsterSkills",
     promise: () => httpGet("/MonsterSkills.html"),
-    init: initMonsterSkillsPage,
     localEnvPageContent: monsterSkillsPageContent,
+    page: MonsterSkillsPage,
   },
   {
     route: "/Menu",
     promise: () => httpGet("/Menu.html"),
-    init: initMenuPage,
     localEnvPageContent: menuPageContent,
+    page: MenuPage,
   },
   {
     route: "/History",
     promise: () => httpGet("/History.html"),
-    init: initHistoryPage,
     localEnvPageContent: historyPageContent,
+    page: HistoryPage,
   },
 ];
 
@@ -75,6 +75,7 @@ init = async() => {
     routes[page.route] = {
       pageContent: pageContents[index].v,
       init: page.init,
+      page: page.page,
     };
   })
 
@@ -118,8 +119,9 @@ replacePageContent = async() => {
   setLoading(true);
   const route = routes[window.location.pathname];
   mainContentContainer.innerHTML = route.pageContent;
-  route.init()
-    .then(() => setLoading(false));
+  currentPageInstance
+  currentPageInstance = new route.page();
+  setLoading(false);
 }
 
 pushNamed = (pathName) => {
@@ -135,8 +137,8 @@ static__pushNamed = async(pathName) => {
   if (page) {
     setLoading(true);
     mainContentContainer.innerHTML = page.localEnvPageContent;
-    page.init()
-      .then(() => setLoading(false));
+    currentPageInstance = new page.page();
+    setLoading(false);
   }
 }
 

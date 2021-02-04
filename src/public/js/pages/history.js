@@ -5,120 +5,110 @@ const titleOfEventType = {
   "directly_change_number": "直接修改數量"
 };
 
-initHistoryPage = async() => {
-  let jsonObject = await getMonsterRoot();
-  events = jsonObject.events;
+class HistoryPage {
+  constructor(props) {
+    this.init();
+  }
+
+  init = async() => {
+    let jsonObject = await getMonsterRoot();
+    events = jsonObject.events;
+    
+    let prevDate;
+    let currDate;
   
-  let prevDate;
-  let currDate;
-
-  eventListElem = document.getElementById("eventList");
-  clearEventsButton = document.getElementById("clearEventsButton");
-
-  events.sort((a, b) => b.id - a.id);
-  events.forEach((event) => {
-
-    prevDate = currDate;
-    currDate = event.time.substring(0, 10);
-
-    if (currDate !== prevDate) {
+    eventListElem = document.getElementById("eventList");
+    clearEventsButton = document.getElementById("clearEventsButton");
+  
+    events.sort((a, b) => b.id - a.id);
+    events.forEach((event) => {
+  
+      prevDate = currDate;
+      currDate = event.time.substring(0, 10);
+  
+      if (currDate !== prevDate) {
+        eventListElem.innerHTML += `
+          <li>
+            <h3>
+              ${currDate}
+            </h3>
+          </li>
+        `;
+      }
+  
+      const changeStateButton = event.isRecovered
+      ? `
+        <div class="tooltip">
+          <i class="material-icons">
+            undo
+          </i>
+          <span class="tooltiptext tooltiptext-top">重新作用</span>
+        </div>
+      `
+      : `<div class="tooltip">
+          <i class="material-icons">
+          restore
+          </i>
+          <span class="tooltiptext tooltiptext-top">回復事件</span>
+        </div>`;
+  
+      const deleteEventButton = `
+        <div class="tooltip" onclick="currentPageInstance.deleteEvent('${event.id}')">
+          <i class="material-icons w3-text-red">
+            delete
+          </i>
+          <span class="tooltiptext tooltiptext-top">刪除事件</span>
+        </div>
+      `;
+  
       eventListElem.innerHTML += `
-        <li>
-          <h3>
-            ${currDate}
-          </h3>
+        <li id="eventItem${event.id}" class="eventItem w3-bar w3-display-container w3-hover-light-gray w3-border">
+          <div class="w3-bar-item">
+            <div class="title">
+              <b class="w3-large">${titleOfEventType[event.type]}</b><br/>
+            </div>
+            <span>${this.getEventMessageByType(event)}</span><br/>
+            <span>${event.time}</span>
+          </div>
+          <span class="w3-display-right noselect">
+            <!-- TODO ${changeStateButton} -->
+            ${deleteEventButton}
+            &nbsp;&nbsp;&nbsp;
+          </span>
         </li>
       `;
-    }
-
-    const changeStateButton = event.isRecovered
-    ? `
-      <div class="tooltip">
-        <i class="material-icons">
-          undo
-        </i>
-        <span class="tooltiptext tooltiptext-top">重新作用</span>
-      </div>
-    `
-    : `<div class="tooltip">
-        <i class="material-icons">
-        restore
-        </i>
-        <span class="tooltiptext tooltiptext-top">回復事件</span>
-      </div>`;
-
-    const deleteEventButton = `
-      <div class="tooltip" onclick="deleteEvent('${event.id}')">
-        <i class="material-icons w3-text-red">
-          delete
-        </i>
-        <span class="tooltiptext tooltiptext-top">刪除事件</span>
-      </div>
-    `;
-
-    eventListElem.innerHTML += `
-      <li id="eventItem${event.id}" class="eventItem w3-bar w3-display-container w3-hover-light-gray w3-border">
-        <div class="w3-bar-item">
-          <div class="title">
-            <b class="w3-large">${titleOfEventType[event.type]}</b><br/>
-          </div>
-          <span>${getEventMessageByType(event)}</span><br/>
-          <span>${event.time}</span>
-        </div>
-        <span class="w3-display-right noselect">
-          <!-- TODO ${changeStateButton} -->
-          ${deleteEventButton}
-          &nbsp;&nbsp;&nbsp;
-        </span>
-      </li>
-    `;
-  });
-
-  clearEventsButton.addEventListener("click", () => {
-    
-  });
-}
-
-getEventMessageByType = (event) => {
-  const { type } = event;
-  switch(type) {
-    case "directly_change_number":
-      const { monsterId, star, diff } = event;
-      const sign = diff > 0 ? "+" : "";
-      const color = diff > 0 ? "green" : "red";
-      return `${monsterId} ${star}⭐ <b class="w3-text-${color}">${sign}${diff}</b>`;
+    });
+  
+    // clearEventsButton.addEventListener("click", () => {
+      
+    // });
   }
-}
-
-deleteEvent = async(eventId) => {
-  try {
-    result = false;
-    if (isStaticEnv) {
-      result = static__deleteEvent(eventId);
-    } else {
-      result = remote__deleteEvent(eventId);
+  
+  getEventMessageByType = (event) => {
+    const { type } = event;
+    switch(type) {
+      case "directly_change_number":
+        const { monsterId, star, diff } = event;
+        const sign = diff > 0 ? "+" : "";
+        const color = diff > 0 ? "green" : "red";
+        return `${monsterId} ${star}⭐ <b class="w3-text-${color}">${sign}${diff}</b>`;
     }
-
-    if (result) {
-      document.getElementById(`eventItem${eventId}`)?.remove();
-    } else {
-      throw Error();
-    }
-  } catch(error) {
-    console.error(error);
-    alert("刪除失敗")
   }
-}
+  
+  deleteEvent = async(eventId) => {
+    try {
+      let result = await EventService.removeEvent(eventId);
 
-static__deleteEvent = async(eventId) => {
-  events = events.filter((e) => e.id != eventId);
-  ls.setItem("events", JSON.stringify(events));
-  return true;
-}
+      if (result) {
+        document.getElementById(`eventItem${eventId}`)?.remove();
+      } else {
+        throw Error();
+      }
+    } catch(error) {
+      console.error(error);
+      alert("刪除失敗")
+    }
+  }
 
-remote__deleteEvent = async(eventId) => {
-  const res = await httpPost("/removeEvent", { eventId });
-  const data = await res.json();
-  return data.result;
 }
 

@@ -1,3 +1,6 @@
+let routes = {};
+let currentPageInstance = undefined;
+
 let monsters;
 let skills;
 let events;
