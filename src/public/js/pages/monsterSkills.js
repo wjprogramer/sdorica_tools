@@ -132,7 +132,19 @@ class MonsterSkillsPage {
         const cellId = this.getDoubleSkillCellID(mainSkill, subSkill);
         const cellElem = document.getElementById(cellId);
         const prefix = cellElem.innerHTML !== "" ? "<br>" : "";
-        cellElem.innerHTML += prefix + `${monster.name} x${doubleSkillMonsterCount}`;
+
+        const name = monster.name;
+        cellElem.innerHTML += prefix + `
+          <img
+            src="images/70px-${name}_Monster_Icon.png"
+            style="width: 30px; margin-right: 4px;"
+            alt="${name}"
+            title="${name}"
+            class="monster-cover-image"
+            onerror="this.src='images/70px-未知_Monster_Icon.png';"
+          />
+          ${name} x${doubleSkillMonsterCount}
+        `;
       }
     });
   }

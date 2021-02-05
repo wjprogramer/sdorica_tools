@@ -119,7 +119,7 @@ class StableStaticsPage {
           alt="${name}"
           title="${name}"
           class="monster-cover-image"
-          onerror="this.src='images/not_found.png';"
+          onerror="this.src='images/70px-未知_Monster_Icon.png';"
         />
         <span class="trMonsterName">${name}</span>
       </th>
