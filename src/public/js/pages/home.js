@@ -1,6 +1,7 @@
 let importMonstersJsonButton;
 let exportMonstersJsonButton;
 let monstersJsonFileInput;
+let versionLabel;
 
 class HomePage {
   constructor(props) {
@@ -11,6 +12,9 @@ class HomePage {
     importMonstersJsonButton = document.getElementById("importMonstersJsonButton");
     exportMonstersJsonButton = document.getElementById("exportMonstersJsonButton");
     monstersJsonFileInput = document.getElementById("monstersJsonFileInput");
+    versionLabel = document.getElementById("versionLabel");
+    
+    versionLabel.innerText = versionName;
   
     if (!isStaticEnv) {
       importMonstersJsonButton.style.display = "none"

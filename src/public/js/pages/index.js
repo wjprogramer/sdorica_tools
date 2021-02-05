@@ -15,31 +15,31 @@ const pageList = [
     route: "/",
     promise: () => httpGet("/Home.html"),
     localEnvPageContent: homePageContent,
-    page: HomePage,
+    constructor: HomePage,
   },
   {
     route: "/StableStatics",
     promise: () => httpGet("/StableStatics.html"),
     localEnvPageContent: stableStaticsPageContent,
-    page: StableStaticsPage,
+    constructor: StableStaticsPage,
   },
   {
     route: "/MonsterSkills",
     promise: () => httpGet("/MonsterSkills.html"),
     localEnvPageContent: monsterSkillsPageContent,
-    page: MonsterSkillsPage,
+    constructor: MonsterSkillsPage,
   },
   {
     route: "/Menu",
     promise: () => httpGet("/Menu.html"),
     localEnvPageContent: menuPageContent,
-    page: MenuPage,
+    constructor: MenuPage,
   },
   {
     route: "/History",
     promise: () => httpGet("/History.html"),
     localEnvPageContent: historyPageContent,
-    page: HistoryPage,
+    constructor: HistoryPage,
   },
 ];
 
@@ -52,6 +52,7 @@ init = async() => {
   navMonsterSkillsButton = document.getElementById("navMonsterSkillsButton");
   navMenuButton = document.getElementById("navMenuButton");
 
+  await checkVersionOrUpdate();
   await loadData();
 
   events.sort((a, b) => b.id - a.id);
@@ -75,7 +76,7 @@ init = async() => {
     routes[page.route] = {
       pageContent: pageContents[index].v,
       init: page.init,
-      page: page.page,
+      constructor: page.constructor,
     };
   })
 
@@ -99,6 +100,17 @@ init = async() => {
 
 }
 
+checkVersionOrUpdate = async() => {
+  versionCode = ls.getItem("versionCode");
+  versionName = ls.getItem("versionName");
+  if (versionCode && !VersionUpdater.isLatestVersion(versionCode)) {
+    await VersionUpdater.updateVersion(versionCode);
+  } else {
+    ls.setItem("versionCode", versionCode || currentVersionCode);
+    ls.setItem("versionName", versionName || currentVersionName);
+  }
+}
+
 loadData = async() => {
   const jsonObject = await getMonsterRoot();
 
@@ -120,7 +132,7 @@ replacePageContent = async() => {
   const route = routes[window.location.pathname];
   mainContentContainer.innerHTML = route.pageContent;
   currentPageInstance
-  currentPageInstance = new route.page();
+  currentPageInstance = new route.constructor();
   setLoading(false);
 }
 
@@ -137,7 +149,7 @@ static__pushNamed = async(pathName) => {
   if (page) {
     setLoading(true);
     mainContentContainer.innerHTML = page.localEnvPageContent;
-    currentPageInstance = new page.page();
+    currentPageInstance = new page.constructor();
     setLoading(false);
   }
 }

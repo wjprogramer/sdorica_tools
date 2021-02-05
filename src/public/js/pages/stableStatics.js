@@ -2,6 +2,7 @@ let stableStaticsTableBody;
 let totalByStar;
 
 class StableStaticsPage {
+  
   constructor(props) {
     this.init();
     this.state = {
@@ -19,19 +20,7 @@ class StableStaticsPage {
       const avaiableMinStar = monster.avaiableMinStar;
   
       let rowHtmlContent = "";
-      rowHtmlContent += `
-        <th>
-          <img
-            src="images/70px-${monster.name}_Monster_Icon.png"
-            style="width: 30px; margin-right: 4px;"
-            alt="${monster.name}"
-            title="${monster.name}"
-            class="monster-cover-image"
-            onerror="this.src='images/not_found.png';"
-          />
-          <span class="trMonsterName">${monster.name}</span>
-        </th>
-      `;
+      rowHtmlContent += this.getMonsterNameCellHTML(monster);
   
       let numberOfStar = Object.entries(monster.numberOfStar);
       numberOfStar.sort((a, b) => {
@@ -115,7 +104,23 @@ class StableStaticsPage {
       "9": 0,
     };
   }
-  
+
+  getMonsterNameCellHTML = ({ name }) => {
+    return `
+      <th>
+        <img
+          src="images/70px-${name}_Monster_Icon.png"
+          style="width: 30px; margin-right: 4px;"
+          alt="${name}"
+          title="${name}"
+          class="monster-cover-image"
+          onerror="this.src='images/not_found.png';"
+        />
+        <span class="trMonsterName">${name}</span>
+      </th>
+    `;
+  }
+
   setNumberOfStar = ({ star, monsterId, diff }) => {
     const monster = monsters.filter((e) => e.id === monsterId)[0];
     try {
@@ -147,29 +152,29 @@ class StableStaticsPage {
   
   uploadMonster = async({ star, monsterId, diff }) => {
     try {
-      document.getElementById("stableStaticsSaveState").innerText = "同步中";
+      this.setSaveStateText("同步中");
   
       let result = MonsterService.uploadMonster({ star, monsterId, diff })
-  
+
       if (result) {
-        document.getElementById("stableStaticsSaveState").innerText = "已是最新";
+        this.setSaveStateText("已是最新");
         
         const cellId = this.getMonsterNumberCellId({ monsterId, star });
         const cell = document.getElementById(cellId);
         const classList = document.getElementById(cellId).classList;
   
-        if (cell.innerText == "0") {
-          classList.toggle("isZero", true);
-        } else {
-          classList.toggle("isZero", false);
-        }
+        classList.toggle("isZero", cell.innerText == "0");
       } else {
         throw Error();
       }
     } catch(error) {
-      document.getElementById("stableStaticsSaveState").innerText = "同步失敗";
+      this.setSaveStateText("同步失敗");
       console.error(error)
     }
+  }
+
+  setSaveStateText = (text) => {
+    document.getElementById("stableStaticsSaveState").innerText = text;
   }
   
   updateTotalNumberByStar = (star, number) => {
