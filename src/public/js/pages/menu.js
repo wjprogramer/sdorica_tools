@@ -4,7 +4,12 @@ let menuGithubRepoItem;
 
 class MenuPage {
   constructor(props) {
-    this.init();
+    try {
+      this.init();
+    } catch(err) {
+      console.error(err);
+      alert("初始化失敗");
+    }
   }
 
   init = async() => {

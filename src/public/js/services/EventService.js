@@ -1,5 +1,13 @@
 class EventService {
 
+  static clearEvents = async() => {
+    if (!isStaticEnv) {
+      return;
+    }
+    events = [];
+    ls.setItem("events", JSON.stringify([]));
+  }
+
   static removeEvent = async(eventId) => {
     let result = false;
     if (isStaticEnv) {

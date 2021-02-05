@@ -1,14 +1,21 @@
 let eventListElem;
-let clearEventsButton; 
+let toggleClearEventsModalButton; 
 
 const titleOfEventType = {
   "directly_change_number": "直接修改數量"
 };
 
 class HistoryPage {
+
   constructor(props) {
-    this.init();
+    try {
+      this.init();
+    } catch(err) {
+      console.error(err);
+      alert("初始化失敗");
+    }
   }
+
 
   init = async() => {
     let jsonObject = await getMonsterRoot();
@@ -16,11 +23,19 @@ class HistoryPage {
     
     let prevDate;
     let currDate;
+
+    this.clearEventsModal = document.getElementById("clearEventsModal");
+    this.clearEventsButton = document.getElementById("clearEventsButton");
   
     eventListElem = document.getElementById("eventList");
-    clearEventsButton = document.getElementById("clearEventsButton");
+    toggleClearEventsModalButton = document.getElementById("toggleClearEventsModalButton");
   
     events.sort((a, b) => b.id - a.id);
+
+    if (events.length === 0) {
+      eventListElem.innerHTML = "<li>無資料</li>";
+    }
+
     events.forEach((event) => {
   
       prevDate = currDate;
@@ -78,8 +93,15 @@ class HistoryPage {
         </li>
       `;
     });
+
+    clearEventsButton.addEventListener("click", () => {
+      console.log("~~~");
+      this.clearEventsModal.style.display='none';
+      EventService.clearEvents();
+      eventListElem.innerHTML = `<li>無資料</li>`;
+    });
   
-    // clearEventsButton.addEventListener("click", () => {
+    // toggleClearEventsModalButton.addEventListener("click", () => {
       
     // });
   }
