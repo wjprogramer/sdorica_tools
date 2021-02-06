@@ -117,11 +117,11 @@ init = async() => {
 checkVersionOrUpdate = async() => {
   versionCode = ls.getItem("versionCode");
   versionName = ls.getItem("versionName");
+  if (versionCode === undefined) {
+    versionCode = 0;
+  }
   if (versionCode && !VersionUpdater.isLatestVersion(versionCode)) {
     await VersionUpdater.updateVersion(versionCode);
-  } else {
-    ls.setItem("versionCode", versionCode || currentVersionCode);
-    ls.setItem("versionName", versionName || currentVersionName);
   }
 }
 
