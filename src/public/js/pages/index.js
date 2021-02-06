@@ -64,8 +64,8 @@ init = async() => {
   navMonsterSkillsButton = document.getElementById("navMonsterSkillsButton");
   navMenuButton = document.getElementById("navMenuButton");
 
-  await checkVersionOrUpdate();
   await loadData();
+  await checkVersionOrUpdate();
 
   events.sort((a, b) => b.id - a.id);
 
@@ -117,10 +117,10 @@ init = async() => {
 checkVersionOrUpdate = async() => {
   versionCode = ls.getItem("versionCode");
   versionName = ls.getItem("versionName");
-  if (versionCode === undefined) {
+  if (versionCode === undefined || versionCode === null) {
     versionCode = 0;
   }
-  if (versionCode && !VersionUpdater.isLatestVersion(versionCode)) {
+  if (!VersionUpdater.isLatestVersion(versionCode)) {
     await VersionUpdater.updateVersion(versionCode);
   }
 }

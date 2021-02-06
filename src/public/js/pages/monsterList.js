@@ -25,7 +25,7 @@ class MonsterListPage {
 
     let listHTML = "";
     monsters.forEach((monster) => {
-      const { id, name, mainSkill, subSkill, avaiableMinStar } = monster;
+      const { id, name, mainSkill, subSkill, avaiableMinStar, isDefault } = monster;
 
       const goDetailsButton = `<div id="${this.getEditMonsterButtonId(id)}" class="tooltip">
         <i class="material-icons">
@@ -58,7 +58,7 @@ class MonsterListPage {
             </span>
           </div>
           <span class="w3-display-right noselect">
-            ${goDetailsButton}
+            ${isDefault ? "" : goDetailsButton}
             &nbsp;&nbsp;&nbsp;
           </span>
         </li>
@@ -70,7 +70,7 @@ class MonsterListPage {
     monsters.forEach((monster) => {
       const id = this.getEditMonsterButtonId(monster.id);
       const button = document.getElementById(id);
-      button.addEventListener("click", () => {
+      button?.addEventListener("click", () => {
         pushNamed("/Monster/Details", {
           monster,
           prevPath: "/MonsterList",
