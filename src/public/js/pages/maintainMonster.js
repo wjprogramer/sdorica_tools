@@ -11,7 +11,9 @@ class MaintainMonsterPage {
       mainSkillSelect: document.getElementById("mainSkillSelect"),
       subSkillSelect: document.getElementById("subSkillSelect"),
       avaiableMinStarInput: document.getElementById("avaiableMinStarInput"),
+      submitButton: document.getElementById("submitButton"),
       pageType,
+      prevPath: props.prevPath,
       form: {
         name: "",
         position: "gold",
@@ -26,11 +28,12 @@ class MaintainMonsterPage {
   init = async(props) => {
     const { monster, prevPath } = props;
     const {
-      pageTitle, goBackButton, maintainForm, nameInput, avaiableMinStarInput,
+      pageTitle, goBackButton, maintainForm, nameInput, avaiableMinStarInput, submitButton,
       pageType,
     } = this.state;
 
     pageTitle.innerText = pageType === PAGE_TYPE.EDIT ? "編輯野獸" : "新增野獸";
+    submitButton.innerText = pageType === PAGE_TYPE.EDIT ? "更新" : "新增";
 
     if (prevPath === undefined) {
       goBackButton.style.display = "none";
@@ -63,8 +66,24 @@ class MaintainMonsterPage {
 
     maintainForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      this.submit(this.state.form);
+      this.submit();
     });
+
+    if (pageType === PAGE_TYPE.EDIT) {
+      nameInput.value = monster.name;
+      mainSkillSelect.value = monster.mainSkill;
+      subSkillSelect.value = monster.subSkill;
+      avaiableMinStarInput.value = monster.avaiableMinStar;
+      
+      this.state = {
+        ...this.state,
+        form: monster
+      };
+
+      for (const radio of positionRadios) {
+        radio.checked = radio.value === monster.position;
+      }
+    }
   }
 
   addChangeHandler = (dom) => {
@@ -77,13 +96,22 @@ class MaintainMonsterPage {
     this.state.form[e.target.name] = e.target.value;
   }
 
-  submit = async(form) => {
+  submit = async() => {
     try {
-      const { pageType } = this.state;
+      const { pageType, prevPath, form } = this.state;
+      let result = true;
       if (pageType === PAGE_TYPE.EDIT) {
-        MonsterService.update(form);
+        result = await MonsterService.update(form);
       } else {
-        MonsterService.create(form);
+        result = await MonsterService.create(form);
+      }
+      if (result) {
+        alert(pageType === PAGE_TYPE.EDIT ? "更新成功" : "新增成功");
+        if (prevPath) {
+          pushNamed(prevPath);
+        }
+      } else {
+        alert("失敗");
       }
     } catch (error) {
       console.error(error);

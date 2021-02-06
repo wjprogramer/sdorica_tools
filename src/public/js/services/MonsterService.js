@@ -11,12 +11,24 @@ class MonsterService {
   }
 
   static static__create = async(payload) => {
+    payload.name = payload.name.trim();
     const existMonster = monsters.filter((m) => m.name === payload.name)[0];
     if (existMonster) {
+      alert("已存在相同名稱野獸");
       return false;
     }
-    const { name, position, mainSkill, subSkill, avaiableMinStar } = payload;
-    // TODO update version
+    const { name, position, mainSkill, subSkill } = payload;
+    let avaiableMinStar = parseInt(payload.avaiableMinStar);
+    if (isNaN(avaiableMinStar)) {
+      alert("「最小星數」請輸入數字");
+      return false;
+    }
+
+    if (StringUtility.isNothing(mainSkill) || StringUtility.isNothing(subSkill)) {
+      alert("技能是必填欄位")
+      return false;
+    }
+
     monsters.push({
 			id: name,
 			name: name,
@@ -25,6 +37,7 @@ class MonsterService {
 			subSkill: subSkill,
 			avaiableMinStar: avaiableMinStar,
       isDefault: false,
+      series: "normal",
 			numberOfStar: {
 				"1": 0,
 				"2": 0,
@@ -37,6 +50,7 @@ class MonsterService {
 				"9": 0
 			}
 		});
+    ls.setItem("monsters", JSON.stringify(monsters));
     return true;
   }
 
@@ -55,6 +69,23 @@ class MonsterService {
   }
 
   static static__update = async(payload) => {
+    const { id } = payload;
+    let index = -1;
+    const monster = monsters.filter((m, i) => {
+      const isSame = m.id === id;
+      if (isSame) {
+        index = i
+      }
+      return isSame;
+    })[0];
+
+    if (monster === undefined) {
+      alert("找不到目前野獸");
+      return false;
+    }
+
+    monsters[index] = { ...monster, ...payload };
+    ls.setItem("monsters", JSON.stringify(monsters));
     return true;
   }
 

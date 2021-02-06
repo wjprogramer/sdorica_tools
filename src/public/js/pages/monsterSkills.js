@@ -5,10 +5,9 @@ let skillsLength = 0;
 class MonsterSkillsPage {
 
   constructor(props) {
-    this.init();
     this.state = {
-
     };
+    this.init();
   }
 
   init = async() => {

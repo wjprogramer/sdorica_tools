@@ -132,7 +132,7 @@ var monsterEmptyData = {
       "position": "gold",
       "mainSkill": "taunt",
       "subSkill": "poison_sting",
-      "avaiableMinStar": 1,
+      "avaiableMinStar": 3,
       "isDefault": true,
       "series": "normal",
       "numberOfStar": {
@@ -153,7 +153,7 @@ var monsterEmptyData = {
       "position": "black",
       "mainSkill": "vigilance",
       "subSkill": "regen",
-      "avaiableMinStar": 1,
+      "avaiableMinStar": 5,
       "isDefault": true,
       "series": "normal",
       "numberOfStar": {
@@ -174,7 +174,7 @@ var monsterEmptyData = {
       "position": "black",
       "mainSkill": "tear",
       "subSkill": "search",
-      "avaiableMinStar": 1,
+      "avaiableMinStar": 3,
       "isDefault": true,
       "series": "normal",
       "numberOfStar": {
@@ -237,7 +237,7 @@ var monsterEmptyData = {
       "position": "black",
       "mainSkill": "poison_sting",
       "subSkill": "transport",
-      "avaiableMinStar": 1,
+      "avaiableMinStar": 3,
       "isDefault": true,
       "series": "normal",
       "numberOfStar": {
@@ -279,7 +279,7 @@ var monsterEmptyData = {
       "position": "white",
       "mainSkill": "transport",
       "subSkill": "exhaust",
-      "avaiableMinStar": 1,
+      "avaiableMinStar": 3,
       "isDefault": true,
       "series": "normal",
       "numberOfStar": {
@@ -468,7 +468,7 @@ var monsterEmptyData = {
       "position": "white",
       "mainSkill": "tear",
       "subSkill": "transport",
-      "avaiableMinStar": 1,
+      "avaiableMinStar": 5,
       "isDefault": true,
       "series": "normal",
       "numberOfStar": {
@@ -573,7 +573,7 @@ var monsterEmptyData = {
       "position": "white",
       "mainSkill": "search",
       "subSkill": "regen",
-      "avaiableMinStar": 1,
+      "avaiableMinStar": 3,
       "isDefault": true,
       "series": "normal",
       "numberOfStar": {
@@ -678,7 +678,7 @@ var monsterEmptyData = {
       "position": "gold",
       "mainSkill": "stun",
       "subSkill": "tear",
-      "avaiableMinStar": 1,
+      "avaiableMinStar": 5,
       "isDefault": true,
       "series": "normal",
       "numberOfStar": {
@@ -762,7 +762,7 @@ var monsterEmptyData = {
       "position": "black",
       "mainSkill": "vigilance",
       "subSkill": "stun",
-      "avaiableMinStar": 1,
+      "avaiableMinStar": 3,
       "isDefault": true,
       "series": "normal",
       "numberOfStar": {
@@ -804,7 +804,7 @@ var monsterEmptyData = {
       "position": "gold",
       "mainSkill": "exhaust",
       "subSkill": "tear",
-      "avaiableMinStar": 1,
+      "avaiableMinStar": 3,
       "isDefault": true,
       "series": "normal",
       "numberOfStar": {
@@ -867,7 +867,7 @@ var monsterEmptyData = {
       "position": "black",
       "mainSkill": "stun",
       "subSkill": "vigilance",
-      "avaiableMinStar": 1,
+      "avaiableMinStar": 3,
       "isDefault": true,
       "series": "normal",
       "numberOfStar": {
@@ -909,7 +909,7 @@ var monsterEmptyData = {
       "position": "gold",
       "mainSkill": "regen",
       "subSkill": "vigilance",
-      "avaiableMinStar": 1,
+      "avaiableMinStar": 3,
       "isDefault": true,
       "series": "normal",
       "numberOfStar": {
@@ -951,7 +951,7 @@ var monsterEmptyData = {
       "position": "white",
       "mainSkill": "stun",
       "subSkill": "taunt",
-      "avaiableMinStar": 1,
+      "avaiableMinStar": 3,
       "isDefault": true,
       "series": "normal",
       "numberOfStar": {

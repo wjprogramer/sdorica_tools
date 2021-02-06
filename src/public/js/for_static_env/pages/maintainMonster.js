@@ -61,7 +61,7 @@ const maintainMonsterPageContent = `<div id="maintainMonsterPage">
     <input id="avaiableMinStarInput" class="w3-input w3-border w3-sand" name="avaiableMinStar" type="number" min="1" max="10" value="1"></p>
     
     <p>
-    <button class="w3-button w3-brown w3-hover-sand">新增</button></p>
+    <button id="submitButton" class="w3-button w3-brown w3-hover-sand">新增</button></p>
   </form>
 </div>
 

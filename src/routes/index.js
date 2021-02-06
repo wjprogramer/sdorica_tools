@@ -63,7 +63,7 @@ router.post("/uploadJson", (req, res, next) => {
       "result": true,
     });
   } catch(error) {
-    console.log("error!");
+    console.error("error!");
     res.send({
       "result": false,
     });
@@ -75,7 +75,7 @@ router.post("/toggleEvent", (req, res, next) => {
   try {
     const { eventId } = req.body;
   } catch(error) {
-    console.log("error!");
+    console.error("error!");
     res.send({
       "result": false,
     });
@@ -106,7 +106,7 @@ router.post("/removeEvent", (req, res, next) => {
       "result": true,
     });
   } catch(error) {
-    console.log("error!");
+    console.error("error!");
     res.send({
       "result": false,
     });
@@ -118,7 +118,7 @@ router.post("/clearEventList", (req, res, next) => {
   try {
 
   } catch(error) {
-    console.log("error!");
+    console.error("error!");
     res.send({
       "result": false,
     });

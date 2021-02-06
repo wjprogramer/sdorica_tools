@@ -1,6 +1,10 @@
 class MonsterListPage {
 
   constructor(props) {
+    this.state = {
+      nameOfSkills: {},
+    };
+
     try {
       this.init();
     } catch (error) {
@@ -13,9 +17,15 @@ class MonsterListPage {
     this.monsterListElem = document.getElementById("monsterList");
     this.goBackButton = document.getElementById("goBackButton");
 
+    const nameOfSkills = {};
+    skills.forEach((skill) => {
+      nameOfSkills[skill.id] = skill.name;
+    })
+    this.state.nameOfSkills = nameOfSkills;
+
     let listHTML = "";
     monsters.forEach((monster) => {
-      const { id, name } = monster;
+      const { id, name, mainSkill, subSkill, avaiableMinStar } = monster;
 
       const goDetailsButton = `<div id="${this.getEditMonsterButtonId(id)}" class="tooltip">
         <i class="material-icons">
@@ -40,7 +50,12 @@ class MonsterListPage {
             <div class="title">
               <b class="w3-large">${name}</b><br/>
             </div>
-            <span>${name}</span><br/>
+            <span>
+              技能:
+              <img src="images/24px-${nameOfSkills[mainSkill]}_Icon.png">
+              <img src="images/24px-${nameOfSkills[subSkill]}_Icon.png">,
+              最小星數: ${avaiableMinStar}
+            </span>
           </div>
           <span class="w3-display-right noselect">
             ${goDetailsButton}
@@ -72,7 +87,7 @@ class MonsterListPage {
     });
   }
 
-  getEditMonsterButtonId = ({ id }) => {
+  getEditMonsterButtonId = (id) => {
     return `edit_button_${id}`;
   }
 

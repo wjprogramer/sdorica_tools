@@ -95,7 +95,6 @@ class HistoryPage {
     });
 
     clearEventsButton.addEventListener("click", () => {
-      console.log("~~~");
       this.clearEventsModal.style.display='none';
       EventService.clearEvents();
       eventListElem.innerHTML = `<li>無資料</li>`;
