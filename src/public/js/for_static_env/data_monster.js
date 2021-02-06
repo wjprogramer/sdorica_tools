@@ -7,6 +7,8 @@ var monsterEmptyData = {
       "mainSkill": "exhaust",
       "subSkill": "vigilance",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -26,6 +28,8 @@ var monsterEmptyData = {
       "mainSkill": "stun",
       "subSkill": "tear",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -45,6 +49,8 @@ var monsterEmptyData = {
       "mainSkill": "vigilance",
       "subSkill": "taunt",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -64,6 +70,8 @@ var monsterEmptyData = {
       "mainSkill": "transport",
       "subSkill": "vigilance",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -83,6 +91,8 @@ var monsterEmptyData = {
       "mainSkill": "vigilance",
       "subSkill": "exhaust",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -102,6 +112,8 @@ var monsterEmptyData = {
       "mainSkill": "poison_sting",
       "subSkill": "vigilance",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -121,6 +133,8 @@ var monsterEmptyData = {
       "mainSkill": "taunt",
       "subSkill": "poison_sting",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -140,6 +154,8 @@ var monsterEmptyData = {
       "mainSkill": "vigilance",
       "subSkill": "regen",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -159,6 +175,8 @@ var monsterEmptyData = {
       "mainSkill": "tear",
       "subSkill": "search",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -178,6 +196,8 @@ var monsterEmptyData = {
       "mainSkill": "poison_sting",
       "subSkill": "search",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -197,6 +217,8 @@ var monsterEmptyData = {
       "mainSkill": "search",
       "subSkill": "transport",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -216,6 +238,8 @@ var monsterEmptyData = {
       "mainSkill": "poison_sting",
       "subSkill": "transport",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -235,6 +259,8 @@ var monsterEmptyData = {
       "mainSkill": "search",
       "subSkill": "exhaust",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -254,6 +280,8 @@ var monsterEmptyData = {
       "mainSkill": "transport",
       "subSkill": "exhaust",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -273,6 +301,8 @@ var monsterEmptyData = {
       "mainSkill": "vigilance",
       "subSkill": "poison_sting",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -292,6 +322,8 @@ var monsterEmptyData = {
       "mainSkill": "regen",
       "subSkill": "exhaust",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -311,6 +343,8 @@ var monsterEmptyData = {
       "mainSkill": "regen",
       "subSkill": "transport",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -330,6 +364,8 @@ var monsterEmptyData = {
       "mainSkill": "exhaust",
       "subSkill": "regen",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -349,6 +385,8 @@ var monsterEmptyData = {
       "mainSkill": "stun",
       "subSkill": "regen",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -368,6 +406,8 @@ var monsterEmptyData = {
       "mainSkill": "search",
       "subSkill": "poison_sting",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -387,6 +427,8 @@ var monsterEmptyData = {
       "mainSkill": "stun",
       "subSkill": "tear",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -406,6 +448,8 @@ var monsterEmptyData = {
       "mainSkill": "tear",
       "subSkill": "taunt",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -425,6 +469,8 @@ var monsterEmptyData = {
       "mainSkill": "tear",
       "subSkill": "transport",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -444,6 +490,8 @@ var monsterEmptyData = {
       "mainSkill": "exhaust",
       "subSkill": "stun",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -463,6 +511,8 @@ var monsterEmptyData = {
       "mainSkill": "poison_sting",
       "subSkill": "tear",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -482,6 +532,8 @@ var monsterEmptyData = {
       "mainSkill": "exhaust",
       "subSkill": "search",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -501,6 +553,8 @@ var monsterEmptyData = {
       "mainSkill": "taunt",
       "subSkill": "vigilance",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -520,6 +574,8 @@ var monsterEmptyData = {
       "mainSkill": "search",
       "subSkill": "regen",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -539,6 +595,8 @@ var monsterEmptyData = {
       "mainSkill": "regen",
       "subSkill": "tear",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -558,6 +616,8 @@ var monsterEmptyData = {
       "mainSkill": "transport",
       "subSkill": "poison_sting",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -577,6 +637,8 @@ var monsterEmptyData = {
       "mainSkill": "transport",
       "subSkill": "stun",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -596,6 +658,8 @@ var monsterEmptyData = {
       "mainSkill": "search",
       "subSkill": "transport",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -615,6 +679,8 @@ var monsterEmptyData = {
       "mainSkill": "stun",
       "subSkill": "tear",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -634,6 +700,8 @@ var monsterEmptyData = {
       "mainSkill": "poison_sting",
       "subSkill": "regen",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -653,6 +721,8 @@ var monsterEmptyData = {
       "mainSkill": "taunt",
       "subSkill": "search",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -672,6 +742,8 @@ var monsterEmptyData = {
       "mainSkill": "tear",
       "subSkill": "poison_sting",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -691,6 +763,8 @@ var monsterEmptyData = {
       "mainSkill": "vigilance",
       "subSkill": "stun",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -710,6 +784,8 @@ var monsterEmptyData = {
       "mainSkill": "vigilance",
       "subSkill": "exhaust",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -729,6 +805,8 @@ var monsterEmptyData = {
       "mainSkill": "exhaust",
       "subSkill": "tear",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -748,6 +826,8 @@ var monsterEmptyData = {
       "mainSkill": "taunt",
       "subSkill": "exhaust",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -767,6 +847,8 @@ var monsterEmptyData = {
       "mainSkill": "taunt",
       "subSkill": "regen",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -786,6 +868,8 @@ var monsterEmptyData = {
       "mainSkill": "stun",
       "subSkill": "vigilance",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -805,6 +889,8 @@ var monsterEmptyData = {
       "mainSkill": "exhaust",
       "subSkill": "poison_sting",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -824,6 +910,8 @@ var monsterEmptyData = {
       "mainSkill": "regen",
       "subSkill": "vigilance",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -843,6 +931,8 @@ var monsterEmptyData = {
       "mainSkill": "tear",
       "subSkill": "poison_sting",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -862,6 +952,8 @@ var monsterEmptyData = {
       "mainSkill": "stun",
       "subSkill": "taunt",
       "avaiableMinStar": 1,
+      "isDefault": true,
+      "series": "normal",
       "numberOfStar": {
         "1": 0,
         "2": 0,
@@ -931,7 +1023,21 @@ var monsterEmptyData = {
       "color": ""
     }
   ],
-	"events": [
-		
-	]
+  "events": [
+    
+  ],
+  "series": [
+    {
+      id: "others",
+      displayName: "其他",
+    },
+    {
+      id: "normal",
+      displayName: "一般",
+    },
+    {
+      id: "gumball",
+      displayName: "岡部奧",
+    },
+  ]
 }

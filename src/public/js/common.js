@@ -1,5 +1,5 @@
-const currentVersionName = "1.0.0"; // start at 1.0.0
-const currentVersionCode = 1; // based 1
+const currentVersionName = "1.1.0"; // start at 1.0.0
+const currentVersionCode = 2; // based 1
 
 let versionCode;
 let versionName;

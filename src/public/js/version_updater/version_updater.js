@@ -15,6 +15,7 @@ class VersionUpdater {
       if (script.code <= versionCode) {
         continue;
       } else {
+        console.log(`開始執行更新: v${script.name}, code: ${script.code}`);
         await script.updateVersion();
         ls.setItem("versionCode", script.code);
         ls.setItem("versionName", script.name);
@@ -36,6 +37,11 @@ class VersionUpdater {
    * ```
    */
   static versionUpdateScripts = [
+    {
+      code: 2,
+      name: "1.1.0",
+      updateVersion: updateVersion_v1_1_0_code_2,
+    }
   ];
 
 }
