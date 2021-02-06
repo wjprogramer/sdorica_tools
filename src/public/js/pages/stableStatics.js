@@ -145,7 +145,7 @@ class StableStaticsPage {
         this.updateTotalNumberByStar(star, totalByStar[star]);
         this.updateTotalNumber(diff);
   
-        this.uploadMonster({ star, monsterId, diff });
+        this.changeMonsterNumber({ star, monsterId, diff });
       } else {
         alert("發生錯誤");
       }
@@ -155,11 +155,11 @@ class StableStaticsPage {
     }
   }
   
-  uploadMonster = async({ star, monsterId, diff }) => {
+  changeMonsterNumber = async({ star, monsterId, diff }) => {
     try {
       this.setSaveStateText("同步中");
   
-      let result = MonsterService.uploadMonster({ star, monsterId, diff })
+      let result = MonsterService.changeNumber({ star, monsterId, diff })
 
       if (result) {
         this.setSaveStateText("已是最新");

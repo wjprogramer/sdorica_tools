@@ -13,42 +13,56 @@ const maintainMonsterPageContent = `<div id="maintainMonsterPage">
   </div>
 </div>
 
-<p>
-  Coming Soon...
-</p>
-
-<p>
-<b class="w3-text-red">
-  未實作此頁面
-</b>
-（這頁面沒有任何功能的意思~）
-</p>
+<!-- TODO add fileds: 系列 -->
 
 <div class="w3-container">
   <form id="maintainForm" class="w3-container" action="/action_page.php">
     <p>      
     <!-- Name and ID -->
     <label class="w3-text-brown"><b>名稱</b></label>
-    <input class="w3-input w3-border w3-sand" name="first" type="text"></p>
+    <input id="nameInput" name="name" class="w3-input w3-border w3-sand" name="first" type="text"></p>
     <p>      
+    
     <!-- position -->
-    <label class="w3-text-brown"><b>站位</b></label>
-    <input class="w3-input w3-border w3-sand" name="last" type="text"></p>
+    <label class="w3-text-brown"><b>站位</b></label><br>
+    
+    <label>
+      <input class="w3-radio position-radio" type="radio" name="position" value="gold" checked>
+      金位
+    </label>
+
+    <label>
+      <input class="w3-radio position-radio" type="radio" name="position" value="black">
+      黑位
+    </label>
+
+    <label>
+      <input class="w3-radio position-radio" type="radio" name="position" value="white">
+      白位
+    </label>
     <p>      
+    
     <!-- mainSkill -->
     <label class="w3-text-brown"><b>主要技能</b></label>
-    <input class="w3-input w3-border w3-sand" name="last" type="text"></p>
+    <select id="mainSkillSelect" class="w3-select w3-border w3-sand" name="mainSkill">
+      <option value="" disabled selected>請選擇技能</option>
+    </select>
     <p>      
+    
     <!-- subSkill -->
     <label class="w3-text-brown"><b>次要技能</b></label>
-    <input class="w3-input w3-border w3-sand" name="last" type="text"></p>
+    <select id="subSkillSelect" class="w3-select w3-border w3-sand" name="subSkill">
+      <option value="" disabled selected>請選擇技能</option>
+    </select>
     <p>      
+    
     <!-- avaiableMinStar -->
     <label class="w3-text-brown"><b>可獲得最小星數</b></label>
-    <input class="w3-input w3-border w3-sand" name="last" type="text"></p>
+    <input id="avaiableMinStarInput" class="w3-input w3-border w3-sand" name="avaiableMinStar" type="number" min="1" max="10" value="1"></p>
+    
     <p>
     <button class="w3-button w3-brown w3-hover-sand">新增</button></p>
   </form>
 </div>
 
-</div>`;
+</div>`

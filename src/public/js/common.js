@@ -12,6 +12,12 @@ let skills;
 let events;
 let isStaticEnv = false;
 
+const PAGE_TYPE = {
+  EDIT: 0,
+  ONLY_READ: 1,
+  CREATE: 2,
+};
+
 // static env
 let staticBasePath = "";
 const ls = localStorage;
