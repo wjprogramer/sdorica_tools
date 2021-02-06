@@ -25,7 +25,7 @@ class MonsterListPage {
       </div>`;
 
       listHTML += `
-        <li id="monsterItem${monster.id}" class="eventItem w3-bar w3-display-container w3-hover-light-gray w3-border">
+        <li id="monsterItem${monster.id}" class="eventItem w3-bar w3-display-container w3-hover-light-gray w3-border" style="overflow: visible;">
           <div class="w3-bar-item">
             <img
               src="images/70px-${name}_Monster_Icon.png"
