@@ -4,6 +4,8 @@ let monstersJsonFileInput;
 let versionLabel;
 
 class HomePage {
+  
+
   constructor(props) {
     try {
       this.init();
@@ -18,6 +20,9 @@ class HomePage {
     exportMonstersJsonButton = document.getElementById("exportMonstersJsonButton");
     monstersJsonFileInput = document.getElementById("monstersJsonFileInput");
     versionLabel = document.getElementById("versionLabel");
+
+    this.goMonsterListPageButton = document.getElementById("goMonsterListPageButton");
+    this.goCreateMonsterPageButton = document.getElementById("goCreateMonsterPageButton");
     
     versionLabel.innerText = versionName;
   
@@ -34,6 +39,16 @@ class HomePage {
   
     monstersJsonFileInput.addEventListener('change', (e) => {
       this.importMonstersJson(e);
+    });
+
+    this.goMonsterListPageButton.addEventListener("click", () => {
+      pushNamed("/MonsterList");
+    });
+
+    this.goCreateMonsterPageButton.addEventListener("click", () => {
+      pushNamed("/Monster/Create", {
+        prevPath: "/",
+      });
     });
   }
 

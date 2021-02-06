@@ -41,6 +41,18 @@ const pageList = [
     localEnvPageContent: historyPageContent,
     constructor: HistoryPage,
   },
+  {
+    route: "/MaintainMonster",
+    promise: () => httpGet("/MaintainMonster.html"),
+    localEnvPageContent: maintainMonsterPageContent,
+    constructor: MaintainMonsterPage,
+  },
+  {
+    route: "/MonsterList",
+    promise: () => httpGet("/MonsterList.html"),
+    localEnvPageContent: monsterListPageContent,
+    constructor: MonsterListPage,
+  }
 ];
 
 init = async() => {
@@ -78,7 +90,9 @@ init = async() => {
       init: page.init,
       constructor: page.constructor,
     };
-  })
+  });
+
+  const maintainMonsterRoute = routes["/MaintainMonster"];
 
   replacePageContent();
 
@@ -123,44 +137,54 @@ window.onpopstate = () => {
   replacePageContent();
 }
 
-replacePageContent = async() => {
+replacePageContent = async(options) => {
   if (isStaticEnv) {
-    pushNamed("/");
+    pushNamed("/", options);
     return;
   }
   setLoading(true);
-  const route = routes[window.location.pathname];
+  let path = window.location.pathname;
+  path = getRedirectPath(path);
+  const route = routes[path];
   mainContentContainer.innerHTML = route.pageContent;
   currentPageInstance
-  currentPageInstance = new route.constructor();
+  currentPageInstance = new route.constructor(options);
   setLoading(false);
 }
 
-pushNamed = (pathName) => {
+pushNamed = (pathName, options) => {
   if (isStaticEnv) {
-    static__pushNamed(pathName);
+    static__pushNamed(pathName, options);
   } else {
-    remote__pushNamed(pathName);
+    remote__pushNamed(pathName, options);
   }
 }
 
-static__pushNamed = async(pathName) => {
+getRedirectPath = (pathName) => {
+  if (pathName === "/Monster/Create" || pathName === "/Monster/Details") {
+    return "/MaintainMonster";
+  }
+  return pathName;
+}
+
+static__pushNamed = async(pathName, options) => {
+  pathName = getRedirectPath(pathName);
   const page = pageList.filter((e) => e.route === pathName)[0];
   if (page) {
     setLoading(true);
     mainContentContainer.innerHTML = page.localEnvPageContent;
-    currentPageInstance = new page.constructor();
+    currentPageInstance = new page.constructor(options);
     setLoading(false);
   }
 }
 
-remote__pushNamed = (pathName) => {
+remote__pushNamed = (pathName, options) => {
   window.history.pushState(
     {}, 
     pathName,
     window.location.origin + pathName
   );
-  replacePageContent();
+  replacePageContent(options);
 }
 
 setLoading = (isLoading) => {
